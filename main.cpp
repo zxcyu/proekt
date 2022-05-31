@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <sstream>
-#include "sstream"
+#include <iostream>
+
 using namespace sf;
 using namespace std;
 const int windowY = 20;
@@ -132,6 +133,7 @@ int main()
     bool ad = true;
     bool good1 =true;
     bool good2=true;
+    bool game=true;
     while (window.isOpen())
     {
         float time[2];
@@ -163,6 +165,8 @@ int main()
             delay[0] = 0.05;
         if (Keyboard::isKeyPressed(Keyboard::Down))
             delay[1] = 0.05;
+        if (Keyboard::isKeyPressed(Keyboard::Space))
+            menu(window);
         for (int i = 0; i < 4; i++) {
             b[i] = a[i];
             d[i] = c[i];
@@ -265,6 +269,12 @@ int main()
             if (count < windowX)
                 k--;
         }
+        int sc1re;
+        if(k--){
+            sc1re+=10,cout<<sc1re;
+        }
+
+        int sc2re;
         int k2 = windowY - 1;
         for (int i = windowY - 1; i > 0; i--) {
             int count = 0;
@@ -275,7 +285,13 @@ int main()
             }
             if (count < windowX)
                 k2--;
+
         }
+        if(k2--){
+            sc2re+=10;
+            cout<<sc2re;
+        }
+
         for (int i = 0; i < 2; i++) {
             dx[i] = 0;
             rotate[i] = false;
@@ -303,7 +319,6 @@ int main()
             window.draw(text6);
             text6.setPosition(55,250);
         }
-
         if(good2){
         for (int i = 0; i < windowY; i++)
             for (int j = -3; j < 7; j++) {
