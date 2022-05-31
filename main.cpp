@@ -1,21 +1,16 @@
 #include <SFML/Graphics.hpp>
-#include "iostream"
-
+#include <sstream>
+#include "sstream"
 using namespace sf;
 using namespace std;
-
-
 const int windowY = 20;
 const int windowX = 10;
 int field[windowY][windowX] = { 0 };
 int field2[windowY][windowX] = { 0 };
 int size = 25;
-
-
 struct Point {
     int x, y;
 }
-
         a[4], b[4], c[4], d[4];
 int figures[7][4] = {
         1,3,5,7,
@@ -26,9 +21,7 @@ int figures[7][4] = {
         3,5,7,6,
         2,3,4,5,
 };
-
 bool check() {
-
     for (int i = 0; i < 4; i++)
         if (a[i].x < -3 || a[i].x >= 7 || a[i].y >= windowY)
             return 0;
@@ -36,69 +29,62 @@ bool check() {
             return 0;
     return 1;
 }
-
 bool check2() {
-
     for (int i = 0; i < 4; i++)
         if (c[i].x < -3 || c[i].x >= 7 || c[i].y >= windowY)
             return 0;
         else if (field2[c[i].y][c[i].x])
             return 0;
-
     return 1;
 }
-
 void menu(RenderWindow & window)
 {
     Image background_field;
-    system("dir");
     background_field.loadFromFile("ffww.png");
-
     Texture background_field_texture;
     background_field_texture.loadFromImage(background_field);
-
     Sprite background_menu(background_field_texture);
     background_menu.setPosition(0, 0);
     Font font1;
     font1.loadFromFile("font1.otf");
-    Text text1("START",font1,50),text2("ABOUT",font1,50),text3("EXIT",font1,50),text4("TETRIS",font1,80);
+    Text text1("START",font1,50),text2("ABOUT",font1,50),text3("EXIT",font1,50),text4("TETRIS",font1,80),
+    text5("",font1,50);
     text1.setPosition(175,205);
     text2.setPosition(175,280);
     text3.setPosition(210,355);
     text4.setPosition(72,50);
     text4.setFillColor(Color::Green);
-
-
-
     bool isMenu = true;
     while (isMenu)
     {   text1.setFillColor(Color::Green);
         text2.setFillColor(Color::Green);
         text3.setFillColor(Color::Green);
         int menuNum=0;
-        if (IntRect(175, 205, 240, 50).contains(Mouse::getPosition(window))) { text1.setColor(Color::Blue); menuNum = 1; }
-        if (IntRect(175, 280, 240, 50).contains(Mouse::getPosition(window))) { text2.setColor(Color::Blue); menuNum = 2; }
-        if (IntRect(210, 355, 170, 50).contains(Mouse::getPosition(window))) { text3.setColor(Color::Blue); menuNum = 3; }
-
+        if (IntRect(175, 205, 240, 50).contains(Mouse::getPosition(window))) {
+            text1.setColor(Color::Blue);
+            menuNum = 1; }
+        if (IntRect(175, 280, 240, 50).contains(Mouse::getPosition(window))) {
+            text2.setColor(Color::Blue);
+            menuNum = 2; }
+        if (IntRect(210, 355, 170, 50).contains(Mouse::getPosition(window))) {
+            text3.setColor(Color::Blue);
+            menuNum = 3; }
         if (Mouse::isButtonPressed(Mouse::Left))
         {
-            if (menuNum == 1) isMenu = false;//если нажали первую кнопку, то выходим из меню
-            if (menuNum == 2) { window.draw(text1); window.display(); while (!Keyboard::isKeyPressed(Keyboard::Escape)); }
-            if (menuNum == 3)  { window.close(); isMenu = false; }
-
+            if (menuNum == 1) isMenu = false;
+            if (menuNum == 2) { window.draw(text1);
+                window.display();
+                while (!Keyboard::isKeyPressed(Keyboard::Escape)); }
+            if (menuNum == 3)  {
+                window.close();
+                isMenu = false; }
         }
         Event event;
         while (window.pollEvent(event))
         {
-
             if (event.type == Event::Closed)
                 window.close();
-            if ((event.type == Event::KeyPressed))
-                if (event.key.code == Keyboard::W)
-                    isMenu = false;
-
         }
-
         window.draw(background_menu);
         window.draw(text1);
         window.draw(text2);
@@ -106,9 +92,7 @@ void menu(RenderWindow & window)
         window.draw(text4);
         window.display();
     }
-
 }
-
 int main()
 {
     srand(time(0));
@@ -119,25 +103,21 @@ int main()
     Image background_field,background_game1;
     background_field.loadFromFile("fon.png");
     background_game1.loadFromFile("ffww.png");
-
+    Text text5("wasted",font1,30),text6("wasted",font1,30);
     Texture background_field_texture,background_game;
     background_field_texture.loadFromImage(background_field);
     background_game.loadFromImage(background_game1);
-
     Sprite background[2],background_game_sprite(background_game);
     background_game_sprite.setPosition(0, 0);
-
     for (int i = 0; i < 2; i++) {
         background[i].setTexture(background_field_texture);
         background[i].setPosition(size + (windowX * size + size) * i, size);
     }
-
     Texture texture;
     texture.loadFromFile("tiles.png");
     Sprite tiles[2];
     for (int i = 0; i < 2; i++)
         tiles[i].setTexture(texture);
-
     int dx[2], colorNum[2];
     bool rotate[2];
     float timer[2], delay[2];
@@ -149,8 +129,9 @@ int main()
         timer[i] = 0;
         delay[i] = 0.3;
     }
-
     bool ad = true;
+    bool good1 =true;
+    bool good2=true;
     while (window.isOpen())
     {
         float time[2];
@@ -164,7 +145,6 @@ int main()
         {
             if (event.type == Event::Closed)
                 window.close();
-
             if ((event.type == Event::KeyPressed))
                 if (event.key.code == Keyboard::W)
                     rotate[0] = true;
@@ -179,68 +159,55 @@ int main()
                 else if (event.key.code == Keyboard::Left)
                     dx[1] = -1;
         }
-
         if (Keyboard::isKeyPressed(Keyboard::S))
             delay[0] = 0.05;
         if (Keyboard::isKeyPressed(Keyboard::Down))
             delay[1] = 0.05;
-
         for (int i = 0; i < 4; i++) {
             b[i] = a[i];
             d[i] = c[i];
-
             a[i].x += dx[0];
             c[i].x += dx[1];
         }
-
         if (!check()) {
             for (int i = 0; i < 4; i++)
                 a[i] = b[i];
         }
-
         if (!check2()) {
             for (int i = 0; i < 4; i++)
                 c[i] = d[i];
         }
-
         if (rotate[0]) {
             Point p = a[1];
             for (int i = 0; i < 4; i++) {
                 int x = a[i].y - p.y;
                 int y = a[i].x - p.x;
-
                 a[i].x = p.x - x;
                 a[i].y = p.y + y;
             }
-
             if (!check()) {
                 for (int i = 0; i < 4; i++)
                     a[i] = b[i];
             }
         }
-
         if (rotate[1]) {
             Point p = c[1];
             for (int i = 0; i < 4; i++) {
                 int x = c[i].y - p.y;
                 int y = c[i].x - p.x;
-
                 c[i].x = p.x - x;
                 c[i].y = p.y + y;
             }
-
             if (!check2()) {
                 for (int i = 0; i < 4; i++)
                     c[i] = d[i];
             }
         }
-
         if (timer[0] > delay[0]) {
             for (int i = 0; i < 4; i++) {
                 b[i] = a[i];
                 a[i].y += 1;
             }
-
             if (!check()) {
                 for (int i = 0; i < 4; i++)
                     field[b[i].y][b[i].x] = colorNum[0];
@@ -250,20 +217,17 @@ int main()
                 for (int i = 0; i < 4; i++) {
                     a[i].x = figures[n][i] % 2;
                     a[i].y = figures[n][i] / 2;
+
                 }
             }
 
             timer[0] = 0;
         }
-
         if (timer[1] > delay[1]) {
-
             for (int i = 0; i < 4; i++) {
-
                 d[i] = c[i];
                 c[i].y += 1;
             }
-
             if (!check2()) {
                 for (int i = 0; i < 4; i++)
                     field2[d[i].y][d[i].x] = colorNum[1];
@@ -277,7 +241,6 @@ int main()
 
             timer[1] = 0;
         }
-
         if (ad) {
             int n[2];
             for (int i = 0; i < 2; i++)
@@ -286,14 +249,11 @@ int main()
                 for (int i = 0; i < 4; i++) {
                     a[i].x = figures[n[0]][i] % 2;
                     a[i].y = figures[n[0]][i] / 2;
-
                     c[i].x = figures[n[1]][i] % 2;
                     c[i].y = figures[n[1]][i] / 2;
                 }
-
             ad = false;
         }
-
         int k = windowY - 1;
         for (int i = windowY - 1; i > 0; i--) {
             int count = 0;
@@ -305,7 +265,6 @@ int main()
             if (count < windowX)
                 k--;
         }
-        int score=0;
         int k2 = windowY - 1;
         for (int i = windowY - 1; i > 0; i--) {
             int count = 0;
@@ -316,62 +275,66 @@ int main()
             }
             if (count < windowX)
                 k2--;
-            score++;
         }
-
-
         for (int i = 0; i < 2; i++) {
             dx[i] = 0;
             rotate[i] = false;
             delay[i] = 0.3;
         }
-
         window.clear(Color::White);
         window.draw(background_game_sprite);
-
         for (int i = 0; i < 2; i++)
             window.draw(background[i]);
-
+        if(good1){
         for (int i = 0; i < windowY; i++)
             for (int j = -3; j < 7; j++) {
                 if (field[i][j] == 0)
                     continue;
-                tiles[0].setTextureRect(IntRect(field[i][j] * size, 0, size, size));
-                tiles[0].setPosition(j * size, i * size);
-                tiles[0].move(4*size, size);
-                window.draw(tiles[0]);
+                    tiles[0].setTextureRect(IntRect(field[i][j] * size, 0, size, size));
+                    tiles[0].setPosition(j * size, i * size);
+                    tiles[0].move(4*size, size);
+                    window.draw(tiles[0]);
+                    if (i <= 1) {
+                        good1=false;
+                    }
             }
+        }
+        else{
+            window.draw(text6);
+            text6.setPosition(55,250);
+        }
 
+        if(good2){
         for (int i = 0; i < windowY; i++)
             for (int j = -3; j < 7; j++) {
-                if (field2[i][j] == 0)
-                    continue;
-                tiles[1].setTextureRect(IntRect(field2[i][j] * size, 0, size, size));
-                tiles[1].setPosition((j * size), (i * size));
-                tiles[1].move( 5*size+(size * windowX), size);
-                window.draw(tiles[1]);
-            }
-
+                    if (field2[i][j] == 0 )
+                        continue;
+                    tiles[1].setTextureRect(IntRect(field2[i][j] * size, 0, size, size));
+                    tiles[1].setPosition((j * size), (i * size));
+                    tiles[1].move(5 * size + (size * windowX), size);
+                    window.draw(tiles[1]);
+                    if (i <= 1) {
+                        good2=false;
+                    }
+                }
+        }
+        else{
+            window.draw(text5);
+            text5.setPosition(330,250);
+        }
         for (int i = 0; i < 4; i++) {
-            tiles[0].setTextureRect(IntRect(colorNum[0] * size, 0, size, size));
-            tiles[1].setTextureRect(IntRect(colorNum[1] * size, 0, size, size));
-
-            tiles[0].setPosition(a[i].x * size, a[i].y * size);
-            tiles[1].setPosition(c[i].x * size, c[i].y * size);
+                tiles[0].setTextureRect(IntRect(colorNum[0] * size, 0, size, size));
+                tiles[1].setTextureRect(IntRect(colorNum[1] * size, 0, size, size));
+                tiles[0].setPosition(a[i].x * size, a[i].y * size);
+                tiles[1].setPosition(c[i].x * size, c[i].y * size);
 
             for (int j = 0; j < 2; j++) {
                 tiles[j].move(4*size + (size * windowX + size) * j, size);
                 window.draw(tiles[j]);
-
             }
         }
-        Text text1("score ",font1,20);
-        window.draw(text1);
+
         window.display();
-
-
     }
-
-
     return 0;
 }
