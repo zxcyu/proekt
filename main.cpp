@@ -4,15 +4,18 @@
 
 using namespace sf;
 using namespace std;
+
 const int windowY = 20;
 const int windowX = 10;
+
 int field[windowY][windowX] = { 0 };
 int field2[windowY][windowX] = { 0 };
-int size = 25;
+auto size = 25;
+
 struct Point {
     int x, y;
 }
-        a[4], b[4], c[4], d[4];
+a[4], b[4], c[4], d[4];
 int figures[7][4] = {
         1,3,5,7,
         2,4,5,7,
@@ -22,60 +25,72 @@ int figures[7][4] = {
         3,5,7,6,
         2,3,4,5,
 };
+
 bool check() {
     for (int i = 0; i < 4; i++)
         if (a[i].x < -3 || a[i].x >= 7 || a[i].y >= windowY)
-            return 0;
+            return false;
         else if (field[a[i].y][a[i].x])
-            return 0;
-    return 1;
+            return false;
+    return true;
 }
+
 bool check2() {
     for (int i = 0; i < 4; i++)
         if (c[i].x < -3 || c[i].x >= 7 || c[i].y >= windowY)
-            return 0;
+            return false;
         else if (field2[c[i].y][c[i].x])
-            return 0;
-    return 1;
+            return false;
+    return true;
 }
+
 void menu(RenderWindow & window)
 {
     Image background_field;
     background_field.loadFromFile("ffww.png");
+
     Texture background_field_texture;
     background_field_texture.loadFromImage(background_field);
+
     Sprite background_menu(background_field_texture);
     background_menu.setPosition(0, 0);
+
     Font font1;
     font1.loadFromFile("font1.otf");
-    Text text1("START",font1,50),text2("ABOUT",font1,50),text3("EXIT",font1,50),text4("TETRIS",font1,80),
-    text5("",font1,50);
+
+    Text text1("START",font1,50),text2("ABOUT",font1,50),text3("EXIT",font1,50),text4("TETRIS",font1,80),text5("",font1,50);
     text1.setPosition(175,205);
     text2.setPosition(175,280);
     text3.setPosition(210,355);
     text4.setPosition(72,50);
     text4.setFillColor(Color::Green);
+
     bool isMenu = true;
     while (isMenu)
+
     {   text1.setFillColor(Color::Green);
         text2.setFillColor(Color::Green);
         text3.setFillColor(Color::Green);
         int menuNum=0;
         if (IntRect(175, 205, 240, 50).contains(Mouse::getPosition(window))) {
-            text1.setColor(Color::Blue);
-            menuNum = 1; }
+            text1.setFillColor(Color::Blue);
+            menuNum = 1;
+        }
         if (IntRect(175, 280, 240, 50).contains(Mouse::getPosition(window))) {
-            text2.setColor(Color::Blue);
-            menuNum = 2; }
+            text2.setFillColor(Color::Blue);
+            menuNum = 2;
+        }
         if (IntRect(210, 355, 170, 50).contains(Mouse::getPosition(window))) {
-            text3.setColor(Color::Blue);
-            menuNum = 3; }
+            text3.setFillColor(Color::Blue);
+            menuNum = 3;
+        }
         if (Mouse::isButtonPressed(Mouse::Left))
         {
             if (menuNum == 1) isMenu = false;
             if (menuNum == 2) { window.draw(text1);
                 window.display();
-                while (!Keyboard::isKeyPressed(Keyboard::Escape)); }
+                while (!Keyboard::isKeyPressed(Keyboard::Escape));
+            }
             if (menuNum == 3)  {
                 window.close();
                 isMenu = false; }
@@ -96,26 +111,35 @@ void menu(RenderWindow & window)
 }
 int main()
 {
-    srand(time(0));
     RenderWindow window(VideoMode(windowX * size + windowX * size + 3 * size, windowY * size + size * 2), "Tetris!");
     menu(window);
-    Font font1;
+
+    Font font1,font2;
     font1.loadFromFile("font1.otf");
-    Image background_field,background_game1;
+
+    Image background_field,background_game1,background_game2;
     background_field.loadFromFile("fon.png");
     background_game1.loadFromFile("ffww.png");
-    Text text5("wasted",font1,30),text6("wasted",font1,30);
-    Texture background_field_texture,background_game;
+    background_game2.loadFromFile("ffww2.png");
+
+    Text text5("wasted",font1,30),text6("wasted",font1,30),text7(" ",font1,20),text8(" ",font1,20);
+
+    Texture background_field_texture,background_game,background_game3;
     background_field_texture.loadFromImage(background_field);
     background_game.loadFromImage(background_game1);
-    Sprite background[2],background_game_sprite(background_game);
+    background_game3.loadFromImage(background_game2);
+
+    Sprite background[2],background_game_sprite(background_game),background_sprite(background_game3);
     background_game_sprite.setPosition(0, 0);
+    background_sprite.setPosition(0, 0);
+
     for (int i = 0; i < 2; i++) {
         background[i].setTexture(background_field_texture);
         background[i].setPosition(size + (windowX * size + size) * i, size);
     }
     Texture texture;
     texture.loadFromFile("tiles.png");
+
     Sprite tiles[2];
     for (int i = 0; i < 2; i++)
         tiles[i].setTexture(texture);
@@ -133,7 +157,6 @@ int main()
     bool ad = true;
     bool good1 =true;
     bool good2=true;
-    bool game=true;
     while (window.isOpen())
     {
         float time[2];
@@ -150,16 +173,16 @@ int main()
             if ((event.type == Event::KeyPressed))
                 if (event.key.code == Keyboard::W)
                     rotate[0] = true;
-                else if (event.key.code == Keyboard::D)
-                    dx[0] = 1;
-                else if (event.key.code == Keyboard::A)
-                    dx[0] = -1;
-                else if (event.key.code == Keyboard::Up)
-                    rotate[1] = true;
-                else if (event.key.code == Keyboard::Right)
-                    dx[1] = 1;
-                else if (event.key.code == Keyboard::Left)
-                    dx[1] = -1;
+                else{if (event.key.code == Keyboard::D)
+                        dx[0] = 1;}
+            else if (event.key.code == Keyboard::A)
+                dx[0] = -1;
+            else if (event.key.code == Keyboard::Up)
+                rotate[1] = true;
+            else if (event.key.code == Keyboard::Right)
+                dx[1] = 1;
+            else if (event.key.code == Keyboard::Left)
+                dx[1] = -1;
         }
         if (Keyboard::isKeyPressed(Keyboard::S))
             delay[0] = 0.05;
@@ -167,6 +190,7 @@ int main()
             delay[1] = 0.05;
         if (Keyboard::isKeyPressed(Keyboard::Space))
             menu(window);
+
         for (int i = 0; i < 4; i++) {
             b[i] = a[i];
             d[i] = c[i];
@@ -258,6 +282,7 @@ int main()
                 }
             ad = false;
         }
+        int sc1re;
         int k = windowY - 1;
         for (int i = windowY - 1; i > 0; i--) {
             int count = 0;
@@ -269,9 +294,9 @@ int main()
             if (count < windowX)
                 k--;
         }
-        int sc1re;
+
         if(k--){
-            sc1re+=10,cout<<sc1re;
+            sc1re+=10;
         }
 
         int sc2re;
@@ -289,7 +314,6 @@ int main()
         }
         if(k2--){
             sc2re+=10;
-            cout<<sc2re;
         }
 
         for (int i = 0; i < 2; i++) {
@@ -302,10 +326,10 @@ int main()
         for (int i = 0; i < 2; i++)
             window.draw(background[i]);
         if(good1){
-        for (int i = 0; i < windowY; i++)
-            for (int j = -3; j < 7; j++) {
-                if (field[i][j] == 0)
-                    continue;
+            for (int i = 0; i < windowY; i++)
+                for (int j = -3; j < 7; j++) {
+                    if (field[i][j] == 0)
+                        continue;
                     tiles[0].setTextureRect(IntRect(field[i][j] * size, 0, size, size));
                     tiles[0].setPosition(j * size, i * size);
                     tiles[0].move(4*size, size);
@@ -313,15 +337,15 @@ int main()
                     if (i <= 1) {
                         good1=false;
                     }
-            }
+                }
         }
         else{
             window.draw(text6);
             text6.setPosition(55,250);
         }
         if(good2){
-        for (int i = 0; i < windowY; i++)
-            for (int j = -3; j < 7; j++) {
+            for (int i = 0; i < windowY; i++)
+                for (int j = -3; j < 7; j++) {
                     if (field2[i][j] == 0 )
                         continue;
                     tiles[1].setTextureRect(IntRect(field2[i][j] * size, 0, size, size));
@@ -338,17 +362,26 @@ int main()
             text5.setPosition(330,250);
         }
         for (int i = 0; i < 4; i++) {
-                tiles[0].setTextureRect(IntRect(colorNum[0] * size, 0, size, size));
-                tiles[1].setTextureRect(IntRect(colorNum[1] * size, 0, size, size));
-                tiles[0].setPosition(a[i].x * size, a[i].y * size);
-                tiles[1].setPosition(c[i].x * size, c[i].y * size);
+            tiles[0].setTextureRect(IntRect(colorNum[0] * size, 0, size, size));
+            tiles[1].setTextureRect(IntRect(colorNum[1] * size, 0, size, size));
+            tiles[0].setPosition(a[i].x * size, a[i].y * size);
+            tiles[1].setPosition(c[i].x * size, c[i].y * size);
 
             for (int j = 0; j < 2; j++) {
                 tiles[j].move(4*size + (size * windowX + size) * j, size);
-                window.draw(tiles[j]);
-            }
+                window.draw(tiles[j]);}
         }
 
+        ostringstream sc1re_string, sc2re_string;
+        sc1re_string<<sc1re;
+        sc2re_string<<sc2re;
+        text7.setString("score "+sc1re_string.str());
+        text7.setPosition(25,15);
+        text8.setString("score "+sc2re_string.str());
+        text8.setPosition(300,15);
+        window.draw(background_sprite);
+        window.draw(text7);
+        window.draw(text8);
         window.display();
     }
     return 0;
