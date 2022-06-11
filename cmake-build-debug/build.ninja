@@ -39,13 +39,13 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = C$:/Users/79775/CLionProjects/proekt6/cmake-build-debug/
+cmake_ninja_workdir = C$:/Users/79775/CLionProjects/proekt/cmake-build-debug/
 
 #############################################
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\79775\CLionProjects\proekt6\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  COMMAND = cmd.exe /C "cd /D C:\Users\79775\CLionProjects\proekt\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -60,9 +60,17 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 
 build cmake_object_order_depends_target_proekt: phony || CMakeFiles/proekt.dir
 
-build CMakeFiles/proekt.dir/main.cpp.obj: CXX_COMPILER__proekt_Debug C$:/Users/79775/CLionProjects/proekt6/main.cpp || cmake_object_order_depends_target_proekt
+build CMakeFiles/proekt.dir/main.cpp.obj: CXX_COMPILER__proekt_Debug C$:/Users/79775/CLionProjects/proekt/main.cpp || cmake_object_order_depends_target_proekt
   DEFINES = -DSFML_STATIC
   DEP_FILE = CMakeFiles\proekt.dir\main.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -isystem "C:/Users/79775/CLionProjects/lib/sfml/GCC 7.3.0 MinGW (SEH) - 64-bit/SFML-2.5.1/include"
+  OBJECT_DIR = CMakeFiles\proekt.dir
+  OBJECT_FILE_DIR = CMakeFiles\proekt.dir
+
+build CMakeFiles/proekt.dir/game.cpp.obj: CXX_COMPILER__proekt_Debug C$:/Users/79775/CLionProjects/proekt/game.cpp || cmake_object_order_depends_target_proekt
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\proekt.dir\game.cpp.obj.d
   FLAGS = -g -std=gnu++14
   INCLUDES = -isystem "C:/Users/79775/CLionProjects/lib/sfml/GCC 7.3.0 MinGW (SEH) - 64-bit/SFML-2.5.1/include"
   OBJECT_DIR = CMakeFiles\proekt.dir
@@ -76,7 +84,7 @@ build CMakeFiles/proekt.dir/main.cpp.obj: CXX_COMPILER__proekt_Debug C$:/Users/7
 #############################################
 # Link the executable proekt.exe
 
-build proekt.exe: CXX_EXECUTABLE_LINKER__proekt_Debug CMakeFiles/proekt.dir/main.cpp.obj | C$:/Users/79775/CLionProjects/lib/sfml/GCC$ 7.3.0$ MinGW$ (SEH)$ -$ 64-bit/SFML-2.5.1/lib/libsfml-graphics-s-d.a C$:/Users/79775/CLionProjects/lib/sfml/GCC$ 7.3.0$ MinGW$ (SEH)$ -$ 64-bit/SFML-2.5.1/lib/libsfml-window-s-d.a C$:/Users/79775/CLionProjects/lib/sfml/GCC$ 7.3.0$ MinGW$ (SEH)$ -$ 64-bit/SFML-2.5.1/lib/libsfml-system-s-d.a C$:/Users/79775/CLionProjects/lib/sfml/GCC$ 7.3.0$ MinGW$ (SEH)$ -$ 64-bit/SFML-2.5.1/lib/libfreetype.a
+build proekt.exe: CXX_EXECUTABLE_LINKER__proekt_Debug CMakeFiles/proekt.dir/main.cpp.obj CMakeFiles/proekt.dir/game.cpp.obj | C$:/Users/79775/CLionProjects/lib/sfml/GCC$ 7.3.0$ MinGW$ (SEH)$ -$ 64-bit/SFML-2.5.1/lib/libsfml-graphics-s-d.a C$:/Users/79775/CLionProjects/lib/sfml/GCC$ 7.3.0$ MinGW$ (SEH)$ -$ 64-bit/SFML-2.5.1/lib/libsfml-window-s-d.a C$:/Users/79775/CLionProjects/lib/sfml/GCC$ 7.3.0$ MinGW$ (SEH)$ -$ 64-bit/SFML-2.5.1/lib/libsfml-system-s-d.a C$:/Users/79775/CLionProjects/lib/sfml/GCC$ 7.3.0$ MinGW$ (SEH)$ -$ 64-bit/SFML-2.5.1/lib/libfreetype.a
   FLAGS = -g
   LINK_FLAGS = -static -static-libgcc
   LINK_LIBRARIES = "C:/Users/79775/CLionProjects/lib/sfml/GCC 7.3.0 MinGW (SEH) - 64-bit/SFML-2.5.1/lib/libsfml-graphics-s-d.a"  "C:/Users/79775/CLionProjects/lib/sfml/GCC 7.3.0 MinGW (SEH) - 64-bit/SFML-2.5.1/lib/libsfml-window-s-d.a"  "C:/Users/79775/CLionProjects/lib/sfml/GCC 7.3.0 MinGW (SEH) - 64-bit/SFML-2.5.1/lib/libsfml-system-s-d.a"  -lwinmm  -lgdi32  -lOpenGL32  "C:/Users/79775/CLionProjects/lib/sfml/GCC 7.3.0 MinGW (SEH) - 64-bit/SFML-2.5.1/lib/libfreetype.a"  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
@@ -87,22 +95,80 @@ build proekt.exe: CXX_EXECUTABLE_LINKER__proekt_Debug CMakeFiles/proekt.dir/main
   TARGET_IMPLIB = libproekt.dll.a
   TARGET_PDB = proekt.exe.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target t31
+
+
+#############################################
+# Order-only phony target for t31
+
+build cmake_object_order_depends_target_t31: phony || CMakeFiles/t31.dir
+
+build CMakeFiles/t31.dir/test.cpp.obj: CXX_COMPILER__t31_Debug C$:/Users/79775/CLionProjects/proekt/test.cpp || cmake_object_order_depends_target_t31
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\t31.dir\test.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -isystem "C:/Users/79775/CLionProjects/lib/sfml/GCC 7.3.0 MinGW (SEH) - 64-bit/SFML-2.5.1/include"
+  OBJECT_DIR = CMakeFiles\t31.dir
+  OBJECT_FILE_DIR = CMakeFiles\t31.dir
+
+build CMakeFiles/t31.dir/game.cpp.obj: CXX_COMPILER__t31_Debug C$:/Users/79775/CLionProjects/proekt/game.cpp || cmake_object_order_depends_target_t31
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\t31.dir\game.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -isystem "C:/Users/79775/CLionProjects/lib/sfml/GCC 7.3.0 MinGW (SEH) - 64-bit/SFML-2.5.1/include"
+  OBJECT_DIR = CMakeFiles\t31.dir
+  OBJECT_FILE_DIR = CMakeFiles\t31.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target t31
+
+
+#############################################
+# Link the executable t31.exe
+
+build t31.exe: CXX_EXECUTABLE_LINKER__t31_Debug CMakeFiles/t31.dir/test.cpp.obj CMakeFiles/t31.dir/game.cpp.obj | C$:/Users/79775/CLionProjects/lib/sfml/GCC$ 7.3.0$ MinGW$ (SEH)$ -$ 64-bit/SFML-2.5.1/lib/libsfml-graphics-s-d.a C$:/Users/79775/CLionProjects/lib/sfml/GCC$ 7.3.0$ MinGW$ (SEH)$ -$ 64-bit/SFML-2.5.1/lib/libsfml-window-s-d.a C$:/Users/79775/CLionProjects/lib/sfml/GCC$ 7.3.0$ MinGW$ (SEH)$ -$ 64-bit/SFML-2.5.1/lib/libsfml-system-s-d.a C$:/Users/79775/CLionProjects/lib/sfml/GCC$ 7.3.0$ MinGW$ (SEH)$ -$ 64-bit/SFML-2.5.1/lib/libfreetype.a
+  FLAGS = -g
+  LINK_FLAGS = -static -static-libgcc
+  LINK_LIBRARIES = "C:/Users/79775/CLionProjects/lib/sfml/GCC 7.3.0 MinGW (SEH) - 64-bit/SFML-2.5.1/lib/libsfml-graphics-s-d.a"  "C:/Users/79775/CLionProjects/lib/sfml/GCC 7.3.0 MinGW (SEH) - 64-bit/SFML-2.5.1/lib/libsfml-window-s-d.a"  "C:/Users/79775/CLionProjects/lib/sfml/GCC 7.3.0 MinGW (SEH) - 64-bit/SFML-2.5.1/lib/libsfml-system-s-d.a"  -lwinmm  -lgdi32  -lOpenGL32  "C:/Users/79775/CLionProjects/lib/sfml/GCC 7.3.0 MinGW (SEH) - 64-bit/SFML-2.5.1/lib/libfreetype.a"  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\t31.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = t31.exe
+  TARGET_IMPLIB = libt31.dll.a
+  TARGET_PDB = t31.exe.dbg
+
 
 #############################################
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\79775\CLionProjects\proekt6\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -SC:\Users\79775\CLionProjects\proekt6 -BC:\Users\79775\CLionProjects\proekt6\cmake-build-debug"
+  COMMAND = cmd.exe /C "cd /D C:\Users\79775\CLionProjects\proekt\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -SC:\Users\79775\CLionProjects\proekt -BC:\Users\79775\CLionProjects\proekt\cmake-build-debug"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
 
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
+
+#############################################
+# Utility command for test
+
+build CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\79775\CLionProjects\proekt\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\ctest.exe" --force-new-ctest-process "
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build test: phony CMakeFiles/test.util
+
 # =============================================================================
 # Target aliases.
 
 build proekt: phony proekt.exe
+
+build t31: phony t31.exe
 
 # =============================================================================
 # Folder targets.
@@ -110,9 +176,9 @@ build proekt: phony proekt.exe
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/79775/CLionProjects/proekt6/cmake-build-debug
+# Folder: C:/Users/79775/CLionProjects/proekt/cmake-build-debug
 
-build all: phony proekt.exe
+build all: phony proekt.exe t31.exe
 
 # =============================================================================
 # Built-in targets
