@@ -1,4 +1,4 @@
 
- bool start();
- bool check();
- bool check2();
+bool start();
+bool check();
+bool check2();
