@@ -189,6 +189,7 @@ bool start()
    bool ad = true;
    bool good1 = true;
    bool good2 = true;
+   /** Привязка ко времени */
    while (window.isOpen())
    {
       float time[2];
@@ -198,6 +199,7 @@ bool start()
          clock[i].restart();
          timer[i] += time[i];
       }
+
       Event event;
       while (window.pollEvent(event))
       {
@@ -228,7 +230,7 @@ bool start()
          delay[1] = 0.05;
       if (Keyboard::isKeyPressed(Keyboard::Space))
          menu(window);
-
+      /** Движение фигур */
       for (int i = 0; i < 4; i++)
       {
          b[i] = a[i];
@@ -246,6 +248,7 @@ bool start()
          for (int i = 0; i < 4; i++)
             c[i] = d[i];
       }
+      /** Поворот фигур 1-го игрока */
       if (rotate[0])
       {
          Point p = a[1];
@@ -262,6 +265,7 @@ bool start()
                a[i] = b[i];
          }
       }
+      /** Поворот фигур 2-го игрока */
       if (rotate[1])
       {
          Point p = c[1];
@@ -342,6 +346,7 @@ bool start()
             }
          ad = false;
       }
+      /** Удаление заполненной строки у 1-го игрока*/
       int sc1re;
       int k = windowY - 1;
       for (int i = windowY - 1; i > 0; i--)
@@ -356,13 +361,13 @@ bool start()
          if (count < windowX)
             k--;
       }
-
+      /** Счет 1=го игрока*/
       if (k--)
       {
          sc1re += 10;
       }
 
-
+      /** Удаление заполненной строки у 2-го игрока*/
       int k2 = windowY - 1;
       for (int i = windowY - 1; i > 0; i--)
       {
@@ -376,6 +381,7 @@ bool start()
          if (count < windowX)
             k2--;
       }
+      /** Счет 2-го игрока*/
       int sc2re;
       if (k2--)
       {
@@ -436,13 +442,14 @@ bool start()
          window.draw(text5);
          text5.setPosition(330, 250);
       }
+      /** Цикл отрисовывает фигуры*/
       for (int i = 0; i < 4; i++)
       {
          tiles[0].setTextureRect(IntRect(colorNum[0] * size, 0, size, size));
          tiles[1].setTextureRect(IntRect(colorNum[1] * size, 0, size, size));
          tiles[0].setPosition(a[i].x * size, a[i].y * size);
          tiles[1].setPosition(c[i].x * size, c[i].y * size);
-
+         /** Устанавливает начальное положение фигур*/
          for (int j = 0; j < 2; j++)
          {
             tiles[j].move(4 * size + (size * windowX + size) * j, size);
