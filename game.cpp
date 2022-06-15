@@ -82,7 +82,7 @@ void menu(RenderWindow &window)
    bool isMenu = true;
    int menuNum = 0;
    while (isMenu)
-   {
+   {  Event event;
       text1.setFillColor(Color::Green);
       text2.setFillColor(Color::Green);
       text3.setFillColor(Color::Green);
@@ -110,8 +110,7 @@ void menu(RenderWindow &window)
          {
             window.draw(menu_field_sprite);
             window.display();
-            while (!Keyboard::isKeyPressed(Keyboard::Escape))
-               ;
+            while (!Keyboard::isKeyPressed(Keyboard::Escape));
          }
          if (menuNum == 3)
          {
@@ -119,7 +118,6 @@ void menu(RenderWindow &window)
             isMenu = false;
          }
       }
-      Event event;
       while (window.pollEvent(event))
       {
          if (event.type == Event::Closed)
@@ -361,7 +359,7 @@ bool start()
          if (count < windowX)
             k--;
       }
-      /** Счет 1=го игрока*/
+      /** Счет 1-го игрока*/
       if (k--)
       {
          sc1re += 10;
